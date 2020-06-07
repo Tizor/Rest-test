@@ -1,0 +1,66 @@
+spring:
+  cloud:
+    config:
+      fail-fast: true
+  boot:
+    admin:
+      client:
+        url: http://localhost:9191
+  application:
+    name: Rest-test-server
+  basePackage: app
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/test
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: root
+#    jdbc-url: jdbc:h2:mem:TestDB;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:data/schema.sql'\;RUNSCRIPT FROM 'classpath:data/data.sql' # подругзка данных из файла
+#    driverClassName: org.h2.Driver
+#    username: test
+#    password:
+
+#  jdbc:h2:file:~/sample;INIT=RUNSCRIPT FROM '~/create.sql'\;RUNSCRIPT FROM '~/populate.sql'
+  jpa:
+    hibernate:
+      ddl-auto: none # Это нужно для того, чтобы Hibernate не выполнял никаких действий по модификации схемы, т.к. теперь их будет делать Liquibase.
+    open-in-view: false
+  h2:
+    console:
+      enabled: false
+      path: /h2
+  artemis:
+    host: localhost
+    port: 61617
+    user: root
+    password: root
+eureka:
+  client:
+    fetch-registry: false # ВЫКЛЮЧЕНО
+    register-with-eureka: false # ВЫКЛЮЧЕНО
+    service-url:
+      defaultZone: http://localhost:8090/eureka
+  instance:
+    hostname: localhost
+hibernate:
+  jdbc:
+    lob:
+      non_contextual_creation: true
+  properties:
+    dialect: org.hibernate.dialect.PostgreSQL95Dialect # for java 11
+    #    dialect: org.hibernate.dialect.H2Dialect
+    showSQL: true
+    formatSQL: true
+server:
+  port: 8080
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    beans:
+      enabled: true
+  health:
+    solr:
+      enabled: true
+
+
+

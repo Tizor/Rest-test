@@ -1,0 +1,6 @@
+#spring:
+#  application:
+#    name: application.yaml #название файла в ГИТе
+#  cloud:
+#    config:
+#      uri: http://localhost:8888/ # адрес на котором развернут Spring cloud config server
