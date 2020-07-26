@@ -1,13 +1,13 @@
 spring:
-  cloud:
-    config:
-      fail-fast: true
-  boot:
-    admin:
-      client:
-        url: http://localhost:9191
-  application:
-    name: Rest-test-server
+#  cloud:
+#    config:
+#      fail-fast: false
+#  boot:
+#    admin:
+#      client:
+#        url: http://localhost:9191
+#  application:
+#    name: Rest-test-server
   basePackage: app
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/test
@@ -23,7 +23,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none # Это нужно для того, чтобы Hibernate не выполнял никаких действий по модификации схемы, т.к. теперь их будет делать Liquibase.
-    open-in-view: false
   h2:
     console:
       enabled: false
@@ -33,14 +32,14 @@ spring:
     port: 61617
     user: root
     password: root
-eureka:
-  client:
-    fetch-registry: false # ВЫКЛЮЧЕНО
-    register-with-eureka: false # ВЫКЛЮЧЕНО
-    service-url:
-      defaultZone: http://localhost:8090/eureka
-  instance:
-    hostname: localhost
+#eureka:
+#  client:
+#    fetch-registry: false # ВЫКЛЮЧЕНО
+#    register-with-eureka: false # ВЫКЛЮЧЕНО
+#    service-url:
+#      defaultZone: http://localhost:8090/eureka
+#  instance:
+#    hostname: localhost
 hibernate:
   jdbc:
     lob:
@@ -52,15 +51,15 @@ hibernate:
     formatSQL: true
 server:
   port: 8080
-management:
-  endpoint:
-    shutdown:
-      enabled: true
-    beans:
-      enabled: true
-  health:
-    solr:
-      enabled: true
+#management:
+#  endpoint:
+#    shutdown:
+#      enabled: true
+#    beans:
+#      enabled: true
+#  health:
+#    solr:
+#      enabled: true
 
 
 

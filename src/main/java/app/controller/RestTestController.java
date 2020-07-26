@@ -1,27 +1,47 @@
 package app.controller;
 
+import app.entity.Notes;
 import app.entity.User;
+import app.repo.NotesRepo;
 import app.repo.UserRepo;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+//import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Optional;
 
-@RefreshScope
+//@RefreshScope
 @RestController
 @RequestMapping(path = "/users")
 public class RestTestController {
 
     public UserRepo userRepo;
+    public NotesRepo notesRepo;
 
-    public RestTestController(UserRepo userRepo) {
+    public RestTestController(UserRepo userRepo, NotesRepo notesRepo) {
         this.userRepo = userRepo;
+        this.notesRepo = notesRepo;
+    }
+
+    @GetMapping("/notes")
+    public Collection<Notes> getNotesList(){
+//        Collection<Notes> g = notesRepo.findAll();
+        Collection<Notes> g = notesRepo.findAll();
+        return g;
+    }
+
+    @GetMapping("/not/{id}")
+    public Optional<User> getNotesListById(@PathVariable Long id){
+        Optional<User> f = userRepo.findById(id);
+        f.get().setNotes(notesRepo.getChildNotes(id));
+        return f;
     }
 
     @GetMapping
-    public Iterable<User> getUsersList(){
-        return userRepo.findAll();
+    public Collection<User> getUsersList(){
+        Collection<User> f = userRepo.findAll();
+        return f;
     }
 
     @GetMapping("/{id}")
