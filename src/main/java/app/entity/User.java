@@ -63,6 +63,22 @@ public class User implements Serializable {
  *  @Query("select child from Notes child where child.userWithNote.customerNumber = :number") и сеттить в эту коллекцию результат этого запроса для
  *  каждой родительской сущности по ее Id
  */
-@ElementCollection
-    private Collection<Notes> notes = new ArrayList<>();
+//    @ElementCollection
+//    private Collection<Notes> notes = new ArrayList<>();
+
+    /**
+     * fetch запрос
+     *     @Query("select DISTINCT u from User u join fetch u.notes")
+     *     Collection<User> getUserByFetch();
+     *
+     *     DISTINCT использовать обязательно, иначе записи будут дублироваться
+     *     Результаты выводит только для тех сущностей, у которых связные сущности != null
+     *
+     *     @Query("select u from User u join fetch u.notes where u.customerNumber = :number")
+     *     User getUserFetchByUserId(@Param("number") Long number);
+     */
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "customer_id")
+//    private Collection<Notes> notes = new ArrayList<>();
 }

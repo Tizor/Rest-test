@@ -31,17 +31,27 @@ public class RestTestController {
         return g;
     }
 
-    @GetMapping("/not/{id}")
-    public Optional<User> getNotesListById(@PathVariable Long id){
-        Optional<User> f = userRepo.findById(id);
-        f.get().setNotes(notesRepo.getChildNotes(id));
-        return f;
-    }
+//    @GetMapping("/not/{id}")
+//    public Optional<User> getNotesListById(@PathVariable Long id){
+//        Optional<User> f = userRepo.findById(id);
+//        f.get().setNotes(notesRepo.getChildNotes(id));
+//        return f;
+//    }
 
     @GetMapping
     public Collection<User> getUsersList(){
         Collection<User> f = userRepo.findAll();
         return f;
+    }
+
+    @GetMapping("/fetch")
+    public Collection<User> getUserByFetchRequest() {
+        return userRepo.getUserByFetch();
+    }
+
+    @GetMapping("/fetch/{id}")
+    public User getUserByFetchIdRequest(@PathVariable Long id) {
+        return userRepo.getUserFetchByUserId(id);
     }
 
     @GetMapping("/{id}")

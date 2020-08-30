@@ -10,8 +10,8 @@ import java.util.Collection;
 
 public interface NotesRepo extends JpaRepository<Notes, Long> {
 
-    @Query("select child from Notes child where child.userWithNote.customerNumber = :number")
-    Collection<Notes> getChildNotes(@Param("number") Long number);
+//    @Query("select child from Notes child where child.userWithNote.customerNumber = :number")
+//    Collection<Notes> getChildNotes(@Param("number") Long number);
 }
 
 

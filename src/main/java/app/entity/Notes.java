@@ -48,10 +48,12 @@ public class Notes implements Serializable {
 //    private User userWithNote;
 
     /**
-     * Эксперимент
+     * Для     @ElementCollection
+     *     private Collection<Notes> notes = new ArrayList<>();
      */
 //   @ManyToOne(fetch = FetchType.LAZY)
 //   @JoinColumn(name = "customer_id")
 //    private User userWithNote;
+
 
 }
