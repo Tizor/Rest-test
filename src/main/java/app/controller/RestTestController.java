@@ -13,7 +13,7 @@ import java.util.Optional;
 
 //@RefreshScope
 @RestController
-@RequestMapping(path = "/users")
+@RequestMapping
 public class RestTestController {
 
     public UserRepo userRepo;
@@ -26,23 +26,23 @@ public class RestTestController {
 
     @GetMapping("/notes")
     public Collection<Notes> getNotesList(){
-//        Collection<Notes> g = notesRepo.findAll();
         Collection<Notes> g = notesRepo.findAll();
         return g;
     }
 
-//    @GetMapping("/not/{id}")
-//    public Optional<User> getNotesListById(@PathVariable Long id){
-//        Optional<User> f = userRepo.findById(id);
-//        f.get().setNotes(notesRepo.getChildNotes(id));
-//        return f;
-//    }
-
-    @GetMapping
+    @GetMapping("/users")
     public Collection<User> getUsersList(){
         Collection<User> f = userRepo.findAll();
         return f;
     }
+    @GetMapping("/users/{id}")
+    public Optional<User> getUserListById(@PathVariable Long id){
+        Optional<User> f = userRepo.findById(id);
+        f.get().setNotes(notesRepo.getChildNotes(id));
+        return f;
+    }
+
+
 
     @GetMapping("/fetch")
     public Collection<User> getUserByFetchRequest() {

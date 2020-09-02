@@ -1,21 +1,23 @@
 package app.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 
-@Data
+//@Data
 @RequiredArgsConstructor
 @AllArgsConstructor
+//@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "notes")
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+//        property = "notesId")
 public class Notes implements Serializable {
 
     @Id
@@ -43,7 +45,7 @@ public class Notes implements Serializable {
      * коллекция дочерних сущностей, а так же аннотация
      * @OneToMany(mappedBy = "userWithNote")
      */
-//   @ManyToOne(fetch = FetchType.EAGER)
+//   @ManyToOne
 //   @JoinColumn(name = "customer_id")
 //    private User userWithNote;
 
@@ -55,5 +57,9 @@ public class Notes implements Serializable {
 //   @JoinColumn(name = "customer_id")
 //    private User userWithNote;
 
+
+    @ManyToOne( fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    private User userWithNote;
 
 }

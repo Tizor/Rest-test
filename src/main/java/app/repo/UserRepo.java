@@ -15,4 +15,5 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Query("select u from User u join fetch u.notes where u.customerNumber = :number")
     User getUserFetchByUserId(@Param("number") Long number);
+
 }

@@ -2,11 +2,8 @@ package app.entity;
 
 import app.repo.NotesRepo;
 import app.repo.UserRepo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -16,9 +13,14 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Data
+//@Data
+@Getter
+//@NoArgsConstructor
+@Setter
 @RequiredArgsConstructor
 @Table(name = "customer")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,
+//        property = "customerNumber")
 public class User implements Serializable {
 //
 //    @Autowired
@@ -55,7 +57,7 @@ public class User implements Serializable {
      * классу родительской сущности. Чтобы не уйти в зацикливание, на стороне с коллекцией делается Lazy связь. Или можно использовать
      * JsonManagedReference на стороне коллекции и   JsonBackReference на стороне другой сущности.
      */
-//    @OneToMany(mappedBy = "userWithNote")
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userWithNote")
 //    private Collection<Notes> notes = new ArrayList<>();
 
 /**
@@ -78,7 +80,23 @@ public class User implements Serializable {
      *     User getUserFetchByUserId(@Param("number") Long number);
      */
 
-//    @OneToMany(fetch = FetchType.EAGER)
+//    @OneToMany
 //    @JoinColumn(name = "customer_id")
 //    private Collection<Notes> notes = new ArrayList<>();
+
+    /////////////////
+
+    @OneToMany(mappedBy = "userWithNote", fetch = FetchType.LAZY)
+    private Collection<Notes> notes = new ArrayList<>();
+
 }
+
+/**
+ * При двунаправленной связи на сатороне коллекции всегда будет LAZY инцициализация, на стороне простого поля - либо LAZY, либо EAGER инцициализация.
+ * На данный момент у меня не получилось сделать так, чтобы без каких либо танцев с бубном отоюражать коллекцию при findAll() методе.
+ * Подобное работает только в случае отдельного вывода каждой сущности.
+ * Можно рассмотреть использование аннотации @JsonIdentityInfo, которая предупреждает зацикливание сущности, но это ненадежный вариант т.к.
+ * непонятна логика присваивания номера id при дублировании сущности в запросе.
+ * Так же, чтобы не подгружать коллекцию вручную, можно использовать свои запросы с join fetch, но я не уверен, что они будут работать
+ * при двунаправленной связи из-за все того же зацикливания сущностей.
+ */

@@ -10,15 +10,10 @@ import java.util.Collection;
 
 public interface NotesRepo extends JpaRepository<Notes, Long> {
 
-//    @Query("select child from Notes child where child.userWithNote.customerNumber = :number")
-//    Collection<Notes> getChildNotes(@Param("number") Long number);
+    @Query("select child from Notes child where child.userWithNote.customerNumber = :number")
+    Collection<Notes> getChildNotes(@Param("number") Long number);
+
+//    @Query("select DISTINCT u from Notes u join fetch u.userWithNote")
+//    Collection<Notes> getNotesByFetch();
 }
 
-
-//    select child from MyTable child
-//        left join fetch child.parent
-//        where child.testId = 1
-//
-//    "select pc " +
-//            "from PostComment pc " +
-//            "where pc.post.id = :postId",
